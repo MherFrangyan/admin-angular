@@ -1,0 +1,109 @@
+.header {
+  display: flex;
+  justify-content: flex-end;
+  padding: 25px 50px;
+  background: #DA2032;
+
+  &__user {
+    gap: 15px;
+    display: flex;
+    align-items: center;
+    @media (max-width: 1024px) {
+      display: none;
+    }
+    &-icon {
+      background: #C4C4C4;
+      width: 40px;
+      height: 40px;
+      display: block;
+      border-radius: 50%;
+
+      img {
+        width: 100%;
+      }
+    }
+
+    &-name {
+      font-family: Moscow Sans, Roboto;
+      font-size: 13px;
+      line-height: 22px;
+      text-align: left;
+      color: #E5E5E5;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+
+      .mat-icon {
+        cursor: pointer;
+      }
+
+      h2 {
+        font-weight: 400;
+      }
+    }
+  }
+  &__hamburger {
+    display: none;
+    @media (max-width: 1024px) {
+      display: block;
+    }
+    .line-icon {
+      margin-bottom: 5px;
+      height: 3px;
+      display: block;
+      background: white;
+      width: 40px;
+    }
+  }
+}
+.left-bar {
+  max-width: 273px;
+  &__content {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 273px;
+    background: #666F78;
+    &-title {
+      text-align: center;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      color: white;
+      h2 {
+        font-family: Moscow Sans;
+        font-size: 20px;
+        font-weight: 700;
+        line-height: 26px;
+        text-align: left;
+        color: white;
+      }
+      .sub-title {
+        color: #E5E5E5;
+        font-family: Moscow Sans;
+        font-size: 16px;
+        font-weight: 300;
+        line-height: 23px;
+        text-align: center;
+      }
+    }
+  }
+  &__container{
+
+  }
+  ::ng-deep {
+    .mat-drawer-content.mat-sidenav-content {
+      margin-left: 0 !important;
+      z-index: 10;
+    }
+    .mat-drawer.mat-drawer-side {
+      transform: translateY(94px) !important;
+      @media (max-width: 1024px) {
+        transform: translateY(86px) !important;
+      }
+    }
+  }
+}
+
+
+

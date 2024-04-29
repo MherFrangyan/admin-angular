@@ -35,5 +35,31 @@ $admin-angular-theme: mat.define-light-theme((
 
 /* You can add global styles to this file, and also import other style files */
 
-html, body { height: 100%; }
-body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+html, body {
+  height: 100%;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  font-family: Roboto, "Helvetica Neue", sans-serif;
+  box-sizing: border-box;
+}
+
+
+
+
+//fonts
+@font-face {
+  font-family: 'Moscow Sans';
+  src: url('./assets/fonts/moscowsansregular.ttf') format('truetype');
+  font-weight: 800;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'Moscow Sans';
+  src: url('./assets/fonts/moscowsans-regular.ttf') format('truetype');
+  font-weight: 400;
+  font-style: normal;
+}
