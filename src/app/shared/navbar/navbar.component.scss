@@ -3,7 +3,9 @@
   justify-content: flex-end;
   padding: 25px 50px;
   background: #DA2032;
-
+  @media (max-width: 600px) {
+    padding: 15px;
+  }
   &__user {
     gap: 15px;
     display: flex;
@@ -58,18 +60,33 @@
 }
 .left-bar {
   max-width: 273px;
+  @media (max-width: 600px) {
+    max-width: 100%;
+  }
+  &.hidde-block {
+    visibility: hidden;
+  }
   &__content {
     display: flex;
     align-items: center;
     justify-content: center;
     width: 273px;
     background: #666F78;
+    @media (max-width: 600px) {
+      width: 100%;
+    }
     &-title {
+      border-bottom: 1px solid #C4C4C4;
+      padding: 28px 0;
       text-align: center;
       display: flex;
       justify-content: center;
       align-items: center;
       color: white;
+      @media (max-width: 600px) {
+       gap: 15px;
+        padding: 10px;
+      }
       h2 {
         font-family: Moscow Sans;
         font-size: 20px;
@@ -88,18 +105,101 @@
       }
     }
   }
-  &__container{
-
+  &__desc{
+    display: flex;
+    align-items: center;
+    gap: 15px;
+  }
+  .tabs {
+    .tab-items {
+      font-family: Moscow Sans;
+      font-size: 20px;
+      font-weight: 700;
+      line-height: 24px;
+      text-align: left;
+      color: white;
+      display: flex;
+      align-items: center;
+      gap: 14px;
+    }
+    .active-accordion {
+      margin-top: 5px;
+      background: #A2A9B1;
+      display: block;
+      .tab-items {
+        padding-bottom: 10px;
+      }
+      .mat-expansion-panel-header {
+        padding-bottom: 15px;
+      }
+    }
+    .mat-expansion-panel:not(.mat-expanded) .mat-expansion-panel-header:not([aria-disabled=true]):hover {
+      background: transparent ;
+    }
+  }
+  .mobile-item {
+    display: flex;
+    padding: 10px;
+    border-bottom: 1px solid #A2A9B1;
+    font-family: Moscow Sans;
+    font-size: 12px;
+    font-weight: 700;
+    line-height: 24px;
+    text-align: left;
+    color: white;
+    gap: 15px;
   }
   ::ng-deep {
     .mat-drawer-content.mat-sidenav-content {
       margin-left: 0 !important;
       z-index: 10;
+      background: #666F78;
     }
     .mat-drawer.mat-drawer-side {
       transform: translateY(94px) !important;
       @media (max-width: 1024px) {
         transform: translateY(86px) !important;
+      }
+      @media (max-width: 600px) {
+        transform: translateY(65px) !important;
+      }
+    }
+    .mat-mdc-tab-labels {
+      flex-direction: column;
+    }
+    .mdc-tab-indicator--active {
+      border: none;
+      .mdc-tab-indicator {
+        display: none;
+      }
+      .mdc-tab__text-label {
+        color: white;
+        border-bottom: 1px solid white;
+      }
+    }
+    .mat-expansion-panel {
+      background: transparent;
+      box-shadow: none;
+    }
+    .mat-expansion-panel-header {
+      padding: 35px 24px;
+      @media (max-width: 600px) {
+        max-width: 292px;
+        margin: auto;
+      }
+    }
+    .mdc-tab__text-label {
+      color: #E8EBED;
+      max-width: 200px;
+      height: 19px;
+    }
+    .mat-mdc-tab.mdc-tab--active:hover .mdc-tab__text-label {
+      color: black !important;
+
+    }
+    .mdc-tab.mat-mdc-tab {
+      .mdc-tab__text-label {
+        color: white;
       }
     }
   }

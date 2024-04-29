@@ -7,6 +7,9 @@ import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
 import {MatIconModule} from "@angular/material/icon";
 import {MatSidenavModule} from "@angular/material/sidenav";
 import {FormsModule, ReactiveFormsModule} from "@angular/forms";
+import {MatTabsModule} from "@angular/material/tabs";
+import {CdkAccordionModule} from "@angular/cdk/accordion";
+import {MatExpansionModule} from "@angular/material/expansion";
 
 @NgModule({
   declarations: [
@@ -14,7 +17,7 @@ import {FormsModule, ReactiveFormsModule} from "@angular/forms";
   ],
   imports: [CommonModule, MatMenuModule, MatButtonModule, MatIconModule, MatSidenavModule,
     FormsModule,
-    ReactiveFormsModule,],
+    ReactiveFormsModule, MatTabsModule, CdkAccordionModule, MatExpansionModule,],
   exports: [
     NavbarComponent,
   ]
