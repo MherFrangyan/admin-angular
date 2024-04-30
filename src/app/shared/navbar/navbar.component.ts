@@ -10,9 +10,7 @@ import {takeUntilDestroyed} from "@angular/core/rxjs-interop";
 })
 export class NavbarComponent {
   public active: number = 0;
-  panelOpenState: number = 0;
-  public activeAccordion: null | number  = 0;
-  destroyRef = inject(DestroyRef);
+  public destroyRef = inject(DestroyRef);
 
   constructor(private _formBuilder: FormBuilder, public tabService: TabService) {}
 
@@ -22,11 +20,8 @@ export class NavbarComponent {
       .subscribe(index => this.active = index);
   }
 
-  onTabChanged(tab: any) {
-    this.tabService.activeTabIndex.next(tab.index)
-  }
-  test(el: any) {
-    console.log(el,'');
+  openLeftBar() {
+    this.tabService.toggleLeftBar.next(true)
   }
 
   public options = this._formBuilder.group({

@@ -1,0 +1,96 @@
+<div class="filter">
+  <h3 class="filter__title">Фильтр</h3>
+  <div class="filter__form">
+    <form [formGroup]="form">
+      <div class="filter__form-items">
+        <div class="filter__form-field">
+          <label for="login">Логин</label>
+          <mat-form-field appearance="outline">
+            <input id="login" formControlName="login" matInput placeholder="Ex:John Smith">
+            <mat-error>ascasc</mat-error>
+              <mat-icon class="clear-icon" (click)="onClick($event, 'login')">cancel</mat-icon>
+          </mat-form-field>
+        </div>
+        <div class="filter__form-field">
+          <label for="phone">Телефон</label>
+          <mat-form-field appearance="outline">
+            <input id="phone" formControlName="phone" mask="+0 (000) 000-00-00" matInput placeholder="Ex:+7 (915) 333-22-11">
+              <mat-icon class="clear-icon" (click)="onClick($event, 'phone')">cancel</mat-icon>
+          </mat-form-field>
+        </div>
+        <div class="filter__form-field">
+          <label for="createDate">Дата создания</label>
+          <mat-form-field appearance="outline">
+            <input matInput id="createDate" [matDatepicker]="createDate" formControlName="createDate" placeholder="Ex:30/04/2024">
+            <mat-datepicker-toggle matIconSuffix [for]="createDate">
+              <mat-icon matDatepickerToggleIcon>apps</mat-icon>
+            </mat-datepicker-toggle>
+            <mat-datepicker #createDate></mat-datepicker>
+          </mat-form-field>
+        </div>
+      </div>
+      <div class="filter__form-items">
+        <div class="filter__form-field" [class.errors]="form.get('email')?.errors && form.get('email')?.touched">
+          <label for="login">E-mail</label>
+          <mat-form-field appearance="outline">
+            <input id="email" formControlName="email" matInput placeholder="Ex:email@gmail.com">
+            <mat-error>Недопустимые символы</mat-error>
+            <mat-icon class="clear-icon" (click)="onClick($event, 'email')">cancel</mat-icon>
+          </mat-form-field>
+        </div>
+        <div class="filter__form-field">
+          <label for="phone">Роль</label>
+          <mat-form-field appearance="outline">
+            <mat-select formControlName="role">
+              <mat-option value="customer">Пользователь</mat-option>
+              <mat-option value="admin">Администратор</mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div>
+        <div class="filter__form-field">
+          <label for="updateData">Дата изменения</label>
+          <mat-form-field appearance="outline">
+            <input matInput id="updateData" [matDatepicker]="updateData" formControlName="updateData" placeholder="Ex:30/04/2024">
+            <mat-datepicker-toggle matIconSuffix [for]="updateData">
+              <mat-icon matDatepickerToggleIcon>apps</mat-icon>
+            </mat-datepicker-toggle>
+            <mat-datepicker #updateData></mat-datepicker>
+          </mat-form-field>
+        </div>
+      </div>
+      <div class="filter__form-items">
+        <div class="filter__form-field">
+          <label for="phone">Статус</label>
+          <mat-form-field appearance="outline">
+            <mat-select formControlName="status">
+              <mat-option value="active">Активен</mat-option>
+              <mat-option value="block">Заблокирован</mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div>
+      </div>
+
+
+    </form>
+<!--    <mat-form-field appearance="fill">-->
+<!--      <mat-label>Outline form field</mat-label>-->
+<!--      <input matInput placeholder="Placeholder">-->
+<!--      <mat-icon matSuffix>sentiment_very_satisfied</mat-icon>-->
+<!--      <mat-hint>Hint</mat-hint>-->
+<!--      <ng-template *ngIf="selectedFood">-->
+
+<!--      </ng-template>-->
+<!--    </mat-form-field>-->
+  </div>
+  <div class="filter__navigation">
+    <button mat-fab extended color="primary" (click)="apply()" class="filter__navigation-apply">
+      Применить
+    </button>
+    <button mat-fab extended color="primary" (click)="cancel()" class="filter__navigation-cancel">
+      Отмена
+    </button>
+    <button mat-fab extended color="primary" (click)="clear()" class="filter__navigation-clear">
+      Сбросить
+    </button>
+  </div>
+</div>

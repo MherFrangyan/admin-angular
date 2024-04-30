@@ -1,0 +1,68 @@
+<div class="left-bar" [class.hidde-block]="!sidenav.opened">
+  <mat-sidenav-container class="left-bar__container">
+    <mat-sidenav #sidenav mode="side" opened class="left-bar__content"
+                 [fixedInViewport]="false" [fixedTopGap]="0"
+                 [fixedBottomGap]="0">
+    </mat-sidenav>
+
+    <mat-sidenav-content>
+      <div class="mobile-item">
+        <mat-icon aria-hidden="false" fontIcon="manage_accounts"></mat-icon>
+        <h2>Иванов И.И</h2>
+      </div>
+      <div class="mobile-item">
+        <mat-icon aria-hidden="false" fontIcon="account_box"></mat-icon>
+        <h2>Администрирование</h2>
+      </div>
+
+      <div class="left-bar__content-title">
+        <div class="left-bar__desc">
+          <h2>Суперагент</h2>
+          <p class="sub-title">Банк ВТБ(ПАО)</p>
+        </div>
+        <div>
+          <mat-icon aria-hidden="false" [matMenuTriggerFor]="menu" fontIcon="arrow_drop_down"></mat-icon>
+          <mat-menu #menu="matMenu">
+            <button mat-menu-item>Empty</button>
+          </mat-menu>
+        </div>
+      </div>
+      <div class="tabs">
+        <mat-accordion>
+          <mat-expansion-panel hideToggle [expanded]="true"
+                               [class.active-accordion]="panelOpenState === 0"
+          >
+            <mat-expansion-panel-header>
+              <mat-panel-title>
+                <p class="tab-items">
+                  <mat-icon aria-hidden="false" fontIcon="work"></mat-icon>
+                  Управление
+                </p>
+              </mat-panel-title>
+            </mat-expansion-panel-header>
+            <mat-tab-group animationDuration="0ms" [(selectedIndex)]="active"
+                           (selectedTabChange)="onTabChanged($event)">
+              <mat-tab label="Карточка контрагента"></mat-tab>
+              <mat-tab label="Договоры контрагента"></mat-tab>
+            </mat-tab-group>
+          </mat-expansion-panel>
+
+          <mat-expansion-panel hideToggle [class.active-accordion]="panelOpenState === 1"
+                               (opened)="panelOpenState = 1" (closed)="panelOpenState = 0">
+            <mat-expansion-panel-header>
+              <mat-panel-title>
+                <div class="tab-items">
+                  <mat-icon aria-hidden="false" fontIcon="supervisor_account"></mat-icon>
+                  Субагенты
+                </div>
+              </mat-panel-title>
+            </mat-expansion-panel-header>
+            <div>
+              Not Data
+            </div>
+          </mat-expansion-panel>
+        </mat-accordion>
+      </div>
+    </mat-sidenav-content>
+  </mat-sidenav-container>
+</div>

@@ -1,1 +1,88 @@
-
+.settings-employees {
+  height: 100%;
+  font-family: Moscow Sans;
+  &__page{
+    background: #F5F6F7;
+    display: flex;
+    align-items: stretch;
+  }
+  &__content {
+    flex: 1;
+    padding: 25px 45px 60px 22px;
+    .back {
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      font-size: 18px;
+      font-weight: 700;
+      line-height: 24px;
+      text-align: left;
+      color: #666F78;
+    }
+    &-title {
+      margin-top: 40px;
+      font-size: 30px;
+      font-weight: 700;
+      line-height: 36px;
+      text-align: left;
+      color: #282828;
+    }
+  }
+  &__buttons {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 40px;
+    &-btns {
+      display: flex;
+      justify-content:flex-start;
+      gap: 40px;
+      ::ng-deep {
+        .mat-mdc-extended-fab {
+          background-color: #DA2032;
+          flex-direction: row-reverse;
+          &.cdk-mouse-focused {
+            box-shadow: none;
+          }
+        }
+        .mdc-button__label {
+          color: white;
+          font-size: 14px;
+          font-weight: 300;
+          line-height: 24px;
+          text-align: left;
+        }
+        .mat-icon {
+          color: white;
+          margin-right: 0;
+          margin-left: 12px
+        }
+      }
+    }
+    ::ng-deep {
+      .mat-mdc-extended-fab {
+        box-shadow: none;
+        border-radius: 8px;
+        height: 44px;
+        &.cdk-mouse-focused {
+          box-shadow: none;
+        }
+      }
+    }
+    &-filter {
+      ::ng-deep {
+        .mat-mdc-extended-fab {
+          background-color: #DA2032;
+          &.cdk-mouse-focused {
+            box-shadow: none;
+          }
+          &.activeFilter {
+            background-color: rgba(102, 111, 120, 0.3);
+            .mat-icon, .mdc-button__label {
+              color: #666F78;
+            }
+          }
+        }
+      }
+    }
+  }
+}

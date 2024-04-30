@@ -4,5 +4,6 @@ import {BehaviorSubject} from "rxjs";
 @Injectable({providedIn: 'root'})
 
 export class TabService {
-  activeTabIndex = new BehaviorSubject(0)
+  activeTabIndex = new BehaviorSubject(0);
+  toggleLeftBar = new BehaviorSubject(false);
 }
