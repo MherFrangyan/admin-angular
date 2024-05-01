@@ -1,11 +1,22 @@
 <div class="table">
+  <div class="table__pagination">
+    <mat-paginator [length]="this.dataSource.data.length"
+                   [pageSize]="pageSize"
+                   [pageSizeOptions]="pageSizeOptions"
+                   (page)="onPageChange($event)">
+    </mat-paginator>
+    <p class="table__pagination-count">Количество выбранных записей: {{countSelectedElements()}}</p>
+  </div>
   <table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
 
     <!-- Position Column -->
     <ng-container matColumnDef="action">
       <th mat-header-cell *matHeaderCellDef> Действия </th>
       <td mat-cell *matCellDef="let element">
-        <mat-icon aria-hidden="false" fontIcon="more_horiz"></mat-icon>
+        <mat-icon aria-hidden="false" [matMenuTriggerFor]="action" (click)="$event.stopPropagation()" fontIcon="more_horiz"></mat-icon>
+        <mat-menu #action="matMenu">
+          <button mat-menu-item>Action</button>
+        </mat-menu>
       </td>
     </ng-container>
 
@@ -14,16 +25,14 @@
       <th mat-header-cell *matHeaderCellDef>
         <mat-checkbox (change)="$event ? toggleAllRows() : null"
                       [checked]="selection.hasValue() && isAllSelected()"
-                      [indeterminate]="selection.hasValue() && !isAllSelected()"
-                      [aria-label]="checkboxLabel()">
+                      [indeterminate]="selection.hasValue() && !isAllSelected()">
         </mat-checkbox>
         Логин
       </th>
       <td mat-cell *matCellDef="let row">
         <mat-checkbox (click)="$event.stopPropagation()"
                       (change)="$event ? selection.toggle(row) : null"
-                      [checked]="selection.isSelected(row)"
-                      [aria-label]="checkboxLabel(row)">
+                      [checked]="selection.isSelected(row)">
         </mat-checkbox>
         {{row.name}}
       </td>
@@ -65,8 +74,8 @@
     <ng-container matColumnDef="status">
       <th mat-header-cell *matHeaderCellDef> Статус </th>
       <td mat-cell *matCellDef="let element">
-        <span [ngClass]="{'active': element.status, 'block': !element.status}">
-         {{element.status ? 'Активен' : 'Заблокирован'}}
+        <span [ngClass]="{'active': element.status === 'ACTIVE', 'block': element.status !== 'ACTIVE'}">
+         {{element.status === 'ACTIVE' ? 'Активен' : 'Заблокирован'}}
         </span>
       </td>
     </ng-container>
@@ -86,14 +95,14 @@
     </tr>
   </table>
 
-  <div class="">
-    <mat-paginator [length]="this.dataSource.data.length"
+  <div class="table__pagination">
+    <mat-paginator
+                   [length]="this.dataSource.data.length"
                    [pageSize]="pageSize"
                    [pageSizeOptions]="pageSizeOptions"
                    (page)="onPageChange($event)">
     </mat-paginator>
-    {{countSelectedElements()}}
-
+    <p class="table__pagination-count">Количество выбранных записей: {{countSelectedElements()}}</p>
   </div>
 
 </div>

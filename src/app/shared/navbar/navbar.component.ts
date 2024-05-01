@@ -23,10 +23,4 @@ export class NavbarComponent {
   openLeftBar() {
     this.tabService.toggleLeftBar.next(true)
   }
-
-  public options = this._formBuilder.group({
-    bottom: 0,
-    fixed: false,
-    top: 0,
-  });
 }

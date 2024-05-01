@@ -1,4 +1,4 @@
-import {Component, DestroyRef, ElementRef, inject, ViewChild} from '@angular/core';
+import {Component, DestroyRef, inject, ViewChild} from '@angular/core';
 import {TabService} from "../services/tab.service";
 import {takeUntilDestroyed} from "@angular/core/rxjs-interop";
 import {MatSidenav} from "@angular/material/sidenav";
@@ -21,7 +21,6 @@ export class LeftBarComponent {
     this.tabService.toggleLeftBar
       .pipe(takeUntilDestroyed(this.destroyRef))
       .subscribe(index => {
-        console.log(index,'indexindex');
         index ? this.sidenav.toggle() : '';
       });
   }

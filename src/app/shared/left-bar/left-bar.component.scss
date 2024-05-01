@@ -4,7 +4,11 @@
   background: #666F78;
 
   @media (max-width: 600px) {
+    z-index: 9;
     max-width: 100%;
+    position: absolute;
+    left: 0;
+    right: 0;
   }
 
   &.hidde-block {

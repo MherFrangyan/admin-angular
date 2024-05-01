@@ -7,8 +7,12 @@
     align-items: stretch;
   }
   &__content {
+    overflow: auto;
     flex: 1;
     padding: 25px 45px 60px 22px;
+    @media (max-width: 600px) {
+      padding: 25px 5px;
+    }
     .back {
       cursor: pointer;
       display: flex;
@@ -32,10 +36,14 @@
     display: flex;
     justify-content: space-between;
     margin-top: 40px;
+    flex-wrap: wrap;
+    gap: 25px;
+
     &-btns {
       display: flex;
       justify-content:flex-start;
       gap: 40px;
+      flex-wrap: wrap;
       ::ng-deep {
         .mat-mdc-extended-fab {
           background-color: #DA2032;

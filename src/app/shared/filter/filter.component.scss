@@ -16,11 +16,21 @@
     &-items{
       display: flex;
       justify-content: space-between;
+      flex-wrap: wrap;
       padding: 0 25px;
       margin-top: 30px;
+      gap: 20px;
+      @media (max-width: 600px) {
+        padding: 0;
+      }
+      &:last-child {
+        .filter__form-field {
+          max-width: 500px;
+        }
+      }
     }
     &-field{
-      max-width: 380px;
+      //max-width: 380px;
       flex: 1;
       display: flex;
       flex-direction: column;
@@ -59,6 +69,9 @@
   &__navigation{
     margin-top: 20px;
     padding-left: 25px;
+    gap: 15px;
+    display: flex;
+    flex-wrap: wrap;
     ::ng-deep {
       .mdc-button__label {
         color: white;
@@ -76,6 +89,9 @@
     }
     &-apply{
       background: #DA2032;
+      &:disabled{
+        opacity: 0.4;
+      }
     }
 
     &-clear {

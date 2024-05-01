@@ -7,7 +7,6 @@
           <label for="login">Логин</label>
           <mat-form-field appearance="outline">
             <input id="login" formControlName="login" matInput placeholder="Ex:John Smith">
-            <mat-error>ascasc</mat-error>
               <mat-icon class="clear-icon" (click)="onClick($event, 'login')">cancel</mat-icon>
           </mat-form-field>
         </div>
@@ -63,27 +62,16 @@
           <label for="phone">Статус</label>
           <mat-form-field appearance="outline">
             <mat-select formControlName="status">
-              <mat-option value="active">Активен</mat-option>
-              <mat-option value="block">Заблокирован</mat-option>
+              <mat-option value="ACTIVE">Активен</mat-option>
+              <mat-option value="BLOCK">Заблокирован</mat-option>
             </mat-select>
           </mat-form-field>
         </div>
       </div>
-
-
     </form>
-<!--    <mat-form-field appearance="fill">-->
-<!--      <mat-label>Outline form field</mat-label>-->
-<!--      <input matInput placeholder="Placeholder">-->
-<!--      <mat-icon matSuffix>sentiment_very_satisfied</mat-icon>-->
-<!--      <mat-hint>Hint</mat-hint>-->
-<!--      <ng-template *ngIf="selectedFood">-->
-
-<!--      </ng-template>-->
-<!--    </mat-form-field>-->
   </div>
   <div class="filter__navigation">
-    <button mat-fab extended color="primary" (click)="apply()" class="filter__navigation-apply">
+    <button mat-fab extended color="primary" [disabled]="!form.dirty" (click)="apply()" class="filter__navigation-apply">
       Применить
     </button>
     <button mat-fab extended color="primary" (click)="cancel()" class="filter__navigation-cancel">

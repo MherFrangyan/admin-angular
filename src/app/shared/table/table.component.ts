@@ -1,9 +1,9 @@
-import {Component, DestroyRef, inject, ViewChild} from '@angular/core';
+import {Component, DestroyRef, inject, Input, SimpleChanges, ViewChild} from '@angular/core';
 import {MatTableDataSource} from "@angular/material/table";
 import {SelectionModel} from "@angular/cdk/collections";
 import {UserService} from "../services/users.service";
 import {takeUntilDestroyed} from "@angular/core/rxjs-interop";
-import {Data} from "../interface/api-response.interface";
+import {Data, User, IFormData} from "../interface/api-response.interface";
 import * as moment from 'moment';
 import {MatPaginator} from "@angular/material/paginator";
 
@@ -18,25 +18,20 @@ export interface PeriodicElement {
   availability: string;
 }
 
-// const ELEMENT_DATA: PeriodicElement[] = [
-//   {position: 1, name: 'Hydrogen', weight: 1.0079, symbol: 'H'},
-//   {position: 2, name: 'Helium', weight: 4.0026, symbol: 'He'},
-//   {position: 3, name: 'Lithium', weight: 6.941, symbol: 'Li'},
-//   {position: 4, name: 'Beryllium', weight: 9.0122, symbol: 'Be'},
-//   {position: 5, name: 'Boron', weight: 10.811, symbol: 'B'},
-//   {position: 6, name: 'Carbon', weight: 12.0107, symbol: 'C'},
-//   {position: 7, name: 'Nitrogen', weight: 14.0067, symbol: 'N'},
-//   {position: 8, name: 'Oxygen', weight: 15.9994, symbol: 'O'},
-//   {position: 9, name: 'Fluorine', weight: 18.9984, symbol: 'F'},
-//   {position: 10, name: 'Neon', weight: 20.1797, symbol: 'Ne'},
-// ];
 @Component({
   selector: 'app-table',
   templateUrl: './table.component.html',
   styleUrls: ['./table.component.scss']
 })
 export class TableComponent {
-  // Paginator
+  @Input()
+  blockAndUnblock = '';
+  @Input()
+  newRowData!: IFormData;
+  @Input()
+  filterData!: IFormData;
+  @Input()
+  cancelFilterType!: string;
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   pageSizeOptions: number[] = [5, 10, 20];
   pageSize: number = 5;
@@ -52,8 +47,77 @@ export class TableComponent {
   ngOnInit() {
     this.userService.userData
       .pipe(takeUntilDestroyed(this.destroyRef))
-      .subscribe(res => { this.dataSource.data = res.data;
-        console.log(res,'resres');});
+      .subscribe(res => {
+        const localStorageData = localStorage.getItem('selectedUserList')
+        if (localStorageData) {
+          const selectedUserList = JSON.parse(localStorageData)
+          this.dataSource.data = selectedUserList;
+        } else {
+          this.dataSource.data = res.data;
+        }
+      });
+  }
+
+  ngOnChanges(changes: SimpleChanges): void {
+    if ('blockAndUnblock' in changes) {
+      const newValue = changes['blockAndUnblock'].currentValue;
+      switch (newValue) {
+        case 'block':
+          this.selection.selected.forEach(item => {
+            if (item.status === 'BLOCK') return;
+            item.status = 'BLOCK'
+          })
+          break;
+        case 'unblock':
+          this.selection.selected.forEach(item => {
+            if (item.status === 'ACTIVE') return;
+            item.status = 'ACTIVE'
+          })
+          break;
+      }
+    } else if ('newRowData' in changes) {
+      const newValue = changes['newRowData'].currentValue;
+      if (newValue) {
+        this.addItemToDataSource(newValue)
+      }
+    } else if ('filterData' in changes) {
+      const filterValue = changes['filterData'].currentValue;
+      if (filterValue) {
+        this.dataSource.data = this.dataSource.data.filter((row: Data | User) => {
+          return (
+            (!filterValue.login || ("name" in row && row.name.includes(filterValue.login))) &&
+            (!filterValue.phone || ("phone" in row && row.phone === filterValue.phone)) &&
+            (!filterValue.createDate || ("create_at" in row && row.create_at === moment(filterValue.createDate).unix())) &&
+            (!filterValue.email || ("email" in row && row.email.includes(filterValue.email))) &&
+            (!filterValue.updateData || ("update_at" in row && row.update_at === moment(filterValue.updateData).unix())) &&
+            (!filterValue.status || ("status" in row && row.status === filterValue.status))
+          );
+        });
+      }
+    } else if ('cancelFilterType' in changes) {
+      const typeValue = changes['cancelFilterType'].currentValue;
+      if (typeValue) {
+        this.dataSource.data = this.userService.userData.value.data
+      }
+    }
+  }
+
+  addItemToDataSource(value:IFormData): void {
+    const newItem = {
+      user_id: Math.floor(Math.random() * 1000),
+      is_admin: value.role === "admin",
+      is_ecp: false,
+      status: value.status || 'ACTIVE',
+      id: Math.floor(Math.random() * 1000),
+      name: value.login || 'John Smite',
+      email: value.email || 'example@example.com',
+      phone: value.phone || 0,
+      create_at: moment(value.createDate).unix() || Math.floor(Date.now() / 1000),
+      update_at: ''
+    };
+    const tableData = [...this.dataSource.data, newItem]
+
+    this.dataSource.data = tableData;
   }
 
   onPageChange(event: any): void {
@@ -94,15 +158,10 @@ export class TableComponent {
 
   /** Count the number of selected elements */
   countSelectedElements(): number {
+    if (!this.selection.selected.length) {
+      return 0
+    }
+    localStorage.setItem('selectedUserList', JSON.stringify(this.dataSource.data));
     return this.selection.selected.length;
-  }
-
-  /** The label for the checkbox on the passed row */
-  checkboxLabel(row?: PeriodicElement): string {
-    // if (!row) {
-    //   return `${this.isAllSelected() ? 'deselect' : 'select'} all`;
-    // }
-    // return `${this.selection.isSelected(row) ? 'deselect' : 'select'} row ${row.position + 1}`;
-    return ''
   }
 }

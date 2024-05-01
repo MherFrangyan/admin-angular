@@ -2,39 +2,46 @@
   <app-navbar></app-navbar>
   <div class="settings-employees__page">
     <app-left-bar></app-left-bar>
-    <div class="settings-employees__content">
-      <div class="back">
-        <mat-icon aria-hidden="false" fontIcon="arrow_back_ios"></mat-icon>
-        <span>Назад</span>
-      </div>
-      <h4 class="settings-employees__content-title">Настройка учетных записей сотрудников контрагента</h4>
-      <div class="settings-employees__buttons">
-        <div class="settings-employees__buttons-btns">
-          <button mat-fab extended color="primary">
-            Добавить
-            <mat-icon>add_circle</mat-icon>
-          </button>
-          <button mat-fab extended color="primary">
-            Разблокировать
-            <mat-icon>check_circle</mat-icon>
-          </button>
-          <button mat-fab extended color="primary">
-            Заблокировать
-            <mat-icon>cancel</mat-icon>
-          </button>
+    <ng-container *ngIf="activeTabIndex === 0">
+      <div class="settings-employees__content">
+        <div class="back">
+          <mat-icon aria-hidden="false" fontIcon="arrow_back_ios"></mat-icon>
+          <span>Назад</span>
         </div>
-        <div class="settings-employees__buttons-filter">
-          <button mat-fab extended color="primary" (click)="isFilter = !isFilter" [class.activeFilter]="isFilter">
-            Фильтр
-            <mat-icon>filter_list</mat-icon>
-          </button>
-        </div>
+        <h4 class="settings-employees__content-title">Настройка учетных записей сотрудников контрагента</h4>
+        <div class="settings-employees__buttons">
+          <div class="settings-employees__buttons-btns">
+            <button mat-fab extended color="primary" (click)="addRow()">
+              Добавить
+              <mat-icon>add_circle</mat-icon>
+            </button>
+            <button mat-fab extended color="primary" (click)="blockAndUser('unblock')">
+              Разблокировать
+              <mat-icon>check_circle</mat-icon>
+            </button>
+            <button mat-fab extended color="primary" (click)="blockAndUser('block')">
+              Заблокировать
+              <mat-icon>cancel</mat-icon>
+            </button>
+          </div>
 
+          <div class="settings-employees__buttons-filter">
+            <button mat-fab extended color="primary" (click)="isFilter = !isFilter" [class.activeFilter]="isFilter">
+              Фильтр
+              <mat-icon>filter_list</mat-icon>
+            </button>
+          </div>
+          <small>Пожалуйста, заполните все поля перед добавлением нового товара</small>
+
+        </div>
+        <ng-container *ngIf="isFilter">
+          <app-filter (formValueData)="formValueData($event)" (applyFilter)="applyFilterData($event)" (cancelFilter)="cancelFilter($event)" [addTableData]="addNewRow"></app-filter>
+        </ng-container>
+        <app-table
+          [cancelFilterType]="cancelFilterType"
+          [newRowData]="newRowData"
+          [blockAndUnblock]="blockAndUnblock" [filterData]="filterData"></app-table>
       </div>
-      <ng-container *ngIf="isFilter">
-        <app-filter></app-filter>
-      </ng-container>
-      <app-table></app-table>
-    </div>
+    </ng-container>
   </div>
 </div>

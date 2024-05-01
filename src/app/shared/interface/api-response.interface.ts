@@ -4,7 +4,7 @@ interface Page {
   size: number;
 }
 
-interface User {
+export interface User {
   id: number;
   name: string;
   email: string;
@@ -20,10 +20,18 @@ export interface Data {
   status: string;
 }
 
-export interface FullDataUser extends User, Data {}
-
 export interface ApiResponse {
   page: Page;
   users: User[];
   data: Data[];
+}
+
+export interface IFormData {
+  login: string;
+  phone: string;
+  createDate: string;
+  email: string;
+  role: string;
+  updateData: string;
+  status: string;
 }
